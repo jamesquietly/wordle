@@ -1,12 +1,16 @@
 <script lang="ts">
   import Keyboard from "./Keyboard.svelte";
+  import Modal from "./Modal.svelte";
+
   const targetWord = "dream";
   let guesses: { letter: string; status: 'correct' | 'present' | 'absent' | 'empty' }[][] = Array(6).fill(null).map(() => Array(5).fill({ letter: '', status: 'empty' }));
   let currentGuess = '';
   let activeRow = 0;
+  let gameState: 'playing' | 'won' | 'lost' = 'playing';
+  let gameOverMessage = '';
 
   function handleKeydown(event: KeyboardEvent) {
-    if (activeRow >= 6) return;
+    if (gameState !== 'playing') return;
 
     if (event.key.match(/^[a-zA-Z]$/) && currentGuess.length < 5) {
       currentGuess += event.key.toLowerCase();
@@ -26,6 +30,15 @@
       });
       newGuesses[activeRow] = newRow;
       guesses = newGuesses;
+
+      if (currentGuess === targetWord) {
+        gameState = 'won';
+        gameOverMessage = 'You won!';
+      } else if (activeRow === 5) {
+        gameState = 'lost';
+        gameOverMessage = `You lost! The word was ${targetWord}`;
+      }
+
       activeRow++;
       currentGuess = '';
     }
@@ -38,9 +51,21 @@
     newGuesses[activeRow] = currentRow;
     guesses = newGuesses;
   }
+
+  function resetGame() {
+    guesses = Array(6).fill(null).map(() => Array(5).fill({ letter: '', status: 'empty' }));
+    currentGuess = '';
+    activeRow = 0;
+    gameState = 'playing';
+    gameOverMessage = '';
+  }
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
+
+{#if gameState !== 'playing'}
+  <Modal message={gameOverMessage} on:reset={resetGame} />
+{/if}
 
 <div class="game">
   <h1>Wordle</h1>
