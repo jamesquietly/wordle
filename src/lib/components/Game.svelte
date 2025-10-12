@@ -5,7 +5,9 @@
   import Modal from "./Modal.svelte";
 
   let targetWord: string;
-  let guesses: { letter: string; status: 'correct' | 'present' | 'absent' | 'empty' }[][] = [];
+  type LetterStatus = 'correct' | 'present' | 'absent' | 'empty';
+  type GuessLetter = { letter: string; status: LetterStatus };
+  let guesses: GuessLetter[][] = [];
   let currentGuess = '';
   let activeRow = 0;
   let gameState: 'playing' | 'won' | 'lost' = 'playing';
@@ -35,13 +37,13 @@
     } else if (event.key === 'Enter' && currentGuess.length === 5) {
       const newGuesses = [...guesses];
       const guess = currentGuess.split('');
-      const newRow = guess.map((letter, i) => {
+      const newRow: GuessLetter[] = guess.map((letter, i) => {
         if (letter === targetWord[i]) {
-          return { letter, status: 'correct' };
+          return { letter, status: 'correct' as const };
         } else if (targetWord.includes(letter)) {
-          return { letter, status: 'present' };
+          return { letter, status: 'present' as const };
         } else {
-          return { letter, status: 'absent' };
+          return { letter, status: 'absent' as const };
         }
       });
       newGuesses[activeRow] = newRow;
