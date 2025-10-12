@@ -1,14 +1,28 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { generate } from "random-words";
   import Keyboard from "./Keyboard.svelte";
   import Modal from "./Modal.svelte";
 
-  const targetWord = generate({ maxLength: 5, minLength: 5 });
-  let guesses: { letter: string; status: 'correct' | 'present' | 'absent' | 'empty' }[][] = Array(6).fill(null).map(() => Array(5).fill({ letter: '', status: 'empty' }));
+  let targetWord: string;
+  let guesses: { letter: string; status: 'correct' | 'present' | 'absent' | 'empty' }[][] = [];
   let currentGuess = '';
   let activeRow = 0;
   let gameState: 'playing' | 'won' | 'lost' = 'playing';
   let gameOverMessage = '';
+
+  function newGame() {
+    targetWord = generate({ exactly: 1, minLength: 5, maxLength: 5 })[0];
+    guesses = Array(6).fill(null).map(() => Array(5).fill({ letter: '', status: 'empty' }));
+    currentGuess = '';
+    activeRow = 0;
+    gameState = 'playing';
+    gameOverMessage = '';
+  }
+
+  onMount(() => {
+    newGame();
+  });
 
   function handleKeydown(event: KeyboardEvent) {
     if (gameState !== 'playing') return;
@@ -54,11 +68,7 @@
   }
 
   function resetGame() {
-    guesses = Array(6).fill(null).map(() => Array(5).fill({ letter: '', status: 'empty' }));
-    currentGuess = '';
-    activeRow = 0;
-    gameState = 'playing';
-    gameOverMessage = '';
+    newGame();
   }
 </script>
 
