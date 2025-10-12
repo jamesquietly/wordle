@@ -19,7 +19,8 @@ const config = {
 		}),
 		paths: {
 			base: process.env.NODE_ENV === 'production' ? '/wordle' : ''
-		}
+		},
+		appDir: 'app'
 	}
 };
 
