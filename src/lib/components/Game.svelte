@@ -31,14 +31,14 @@
     newGame();
   });
 
-  function handleKeydown(event: KeyboardEvent) {
+  function handleKeyPress(key: string) {
     if (gameState !== 'playing') return;
 
-    if (event.key.match(/^[a-zA-Z]$/) && currentGuess.length < 5) {
-      currentGuess += event.key.toLowerCase();
-    } else if (event.key === 'Backspace' && currentGuess.length > 0) {
+    if (key.length === 1 && key.match(/^[a-zA-Z]$/) && currentGuess.length < 5) {
+      currentGuess += key.toLowerCase();
+    } else if (key === 'Backspace' && currentGuess.length > 0) {
       currentGuess = currentGuess.slice(0, -1);
-    } else if (event.key === 'Enter' && currentGuess.length === 5) {
+    } else if (key === 'Enter' && currentGuess.length === 5) {
       const newGuesses = [...guesses];
       const guess = currentGuess.split('');
       const newRow: GuessLetter[] = guess.map((letter, i) => {
@@ -74,6 +74,10 @@
     guesses = newGuesses;
   }
 
+  function handleKeydown(event: KeyboardEvent) {
+    handleKeyPress(event.key);
+  }
+
   function resetGame() {
     if (gameState === 'won') {
       score++;
@@ -99,7 +103,7 @@
       {/each}
     {/each}
   </div>
-  <Keyboard {guesses} />
+  <Keyboard {guesses} on:key={(e) => handleKeyPress(e.detail)} />
 </div>
 
 <style>
