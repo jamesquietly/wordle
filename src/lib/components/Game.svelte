@@ -24,9 +24,13 @@
   }
 
   onMount(() => {
-    const savedScore = localStorage.getItem('wordle-score');
-    if (savedScore) {
-      score = JSON.parse(savedScore);
+    try {
+      const savedScore = localStorage.getItem('wordle-score');
+      if (savedScore) {
+        score = JSON.parse(savedScore);
+      }
+    } catch (e) {
+      console.error("Failed to load score from localStorage", e);
     }
     newGame();
   });
