@@ -103,6 +103,13 @@
     font-family: sans-serif;
   }
 
+  h1, h2 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top:3px;
+    padding-bottom:3px;
+  }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
