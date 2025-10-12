@@ -24,6 +24,10 @@
   }
 
   onMount(() => {
+    const savedScore = localStorage.getItem('wordle-score');
+    if (savedScore) {
+      score = JSON.parse(savedScore);
+    }
     newGame();
   });
 
@@ -73,6 +77,7 @@
   function resetGame() {
     if (gameState === 'won') {
       score++;
+      localStorage.setItem('wordle-score', JSON.stringify(score));
     }
     newGame();
   }
