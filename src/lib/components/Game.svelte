@@ -10,6 +10,7 @@
   let activeRow = 0;
   let gameState: 'playing' | 'won' | 'lost' = 'playing';
   let gameOverMessage = '';
+  let score = 0;
 
   function newGame() {
     targetWord = generate({ exactly: 1, minLength: 5, maxLength: 5 })[0];
@@ -68,6 +69,9 @@
   }
 
   function resetGame() {
+    if (gameState === 'won') {
+      score++;
+    }
     newGame();
   }
 </script>
@@ -80,6 +84,7 @@
 
 <div class="game">
   <h1>Wordle</h1>
+  <h2>Score: {score}</h2>
   <div class="grid">
     {#each guesses as row}
       {#each row as cell}
