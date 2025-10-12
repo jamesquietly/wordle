@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { generate } from "random-words";
   import Keyboard from "./Keyboard.svelte";
   import Modal from "./Modal.svelte";
 
-  const targetWord = "dream";
+  const targetWord = generate({ maxLength: 5, minLength: 5 });
   let guesses: { letter: string; status: 'correct' | 'present' | 'absent' | 'empty' }[][] = Array(6).fill(null).map(() => Array(5).fill({ letter: '', status: 'empty' }));
   let currentGuess = '';
   let activeRow = 0;
