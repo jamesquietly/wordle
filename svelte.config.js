@@ -17,6 +17,22 @@ const config = {
 			fallback: '404.html',
 			precompress: false
 		}),
+		prerender: {
+			handleHttpError: ({ path, referrer, message }) => {
+				// Ignore 404s for these files
+				const ignoredPaths = [
+					'/manifest.webmanifest',
+					'/favicon.ico',
+					'/w-192.png',
+					'/w-512.png'
+				];
+				
+				if (ignoredPaths.some(p => path.startsWith(p))) {
+					return;
+				}
+				throw new Error(message);
+			}
+		},
 		paths: {
 			base: process.env.NODE_ENV === 'production' ? '/wordle' : ''
 		},
