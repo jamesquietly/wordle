@@ -3,12 +3,20 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="manifest" href="/wordle/manifest.webmanifest" />
+		<meta name="theme-color" content="#000000" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<link rel="icon" href="/wordle/favicon.ico" sizes="any" />
+		<link rel="icon" href="/wordle/w-192.png" type="image/png" />
+		<link rel="apple-touch-icon" href="/wordle/w-192.png" />
 		
-		<link rel="modulepreload" href="/wordle/app/immutable/entry/start.DsVw0fo9.js">
-		<link rel="modulepreload" href="/wordle/app/immutable/chunks/kNvvhi2c.js">
+		<link rel="modulepreload" href="/wordle/app/immutable/entry/start.BLjxpW4_.js">
+		<link rel="modulepreload" href="/wordle/app/immutable/chunks/CIjd_GoK.js">
 		<link rel="modulepreload" href="/wordle/app/immutable/chunks/DiYVzzA5.js">
 		<link rel="modulepreload" href="/wordle/app/immutable/chunks/B4bfAoKJ.js">
-		<link rel="modulepreload" href="/wordle/app/immutable/entry/app.skbEBe2X.js">
+		<link rel="modulepreload" href="/wordle/app/immutable/entry/app.CFTxeBQe.js">
 		<link rel="modulepreload" href="/wordle/app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="/wordle/app/immutable/chunks/C-8TGlnQ.js">
 	</head>
@@ -16,7 +24,7 @@
 		<div style="display: contents">
 			<script>
 				{
-					__sveltekit_9lsorb = {
+					__sveltekit_ifyem1 = {
 						base: "/wordle",
 						assets: "/wordle"
 					};
@@ -24,11 +32,17 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/wordle/app/immutable/entry/start.DsVw0fo9.js"),
-						import("/wordle/app/immutable/entry/app.skbEBe2X.js")
+						import("/wordle/app/immutable/entry/start.BLjxpW4_.js"),
+						import("/wordle/app/immutable/entry/app.CFTxeBQe.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});
+
+					if ('serviceWorker' in navigator) {
+						addEventListener('load', function () {
+							navigator.serviceWorker.register('/wordle/service-worker.js');
+						});
+					}
 				}
 			</script>
 		</div>
