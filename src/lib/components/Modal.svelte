@@ -19,7 +19,7 @@
       <Dialog.Title>{message}</Dialog.Title>
     </Dialog.Header>
     <Dialog.Footer>
-      <Button on:click={handleReset}>Play Again</Button>
+      <Button onclick={handleReset}>Play Again</Button>
     </Dialog.Footer>
   </Dialog.Content>
 </Dialog.Root>
