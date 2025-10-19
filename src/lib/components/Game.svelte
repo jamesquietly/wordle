@@ -72,13 +72,15 @@
       currentGuess = '';
     }
 
-    const newGuesses = [...guesses];
-    const currentRow = [...newGuesses[activeRow]];
-    for (let i = 0; i < 5; i++) {
-      currentRow[i] = { letter: currentGuess[i] || '', status: 'empty' };
+    if (gameState === 'playing') {
+      const newGuesses = [...guesses];
+      const currentRow = [...newGuesses[activeRow]];
+      for (let i = 0; i < 5; i++) {
+        currentRow[i] = { letter: currentGuess[i] || '', status: 'empty' };
+      }
+      newGuesses[activeRow] = currentRow;
+      guesses = newGuesses;
     }
-    newGuesses[activeRow] = currentRow;
-    guesses = newGuesses;
   }
 
   function handleKeydown(event: KeyboardEvent) {
