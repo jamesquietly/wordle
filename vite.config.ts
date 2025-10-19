@@ -16,12 +16,12 @@ export default defineConfig({
         background_color: "#ffffff",
         icons: [
           {
-            src: "/lib/assets/w-192.png",
+            src: "/w-192.png",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "/lib/assets/w-512.png",
+            src: "/w-512.png",
             sizes: "512x512",
             type: "image/png",
           },
