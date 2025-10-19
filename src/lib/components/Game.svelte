@@ -17,6 +17,10 @@
 
   $: showModal = gameState !== 'playing';
 
+  $: if (!showModal && gameState !== 'playing') {
+    resetGame();
+  }
+
   function newGame() {
     targetWord = generate({ exactly: 1, minLength: 5, maxLength: 5 })[0];
     guesses = Array(6).fill(null).map(() => Array(5).fill({ letter: '', status: 'empty' }));
