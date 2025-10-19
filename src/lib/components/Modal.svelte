@@ -1,48 +1,25 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from "svelte";
+  import * as Dialog from "$lib/components/ui/dialog";
+  import Button from "$lib/components/ui/button/button.svelte";
 
-  export let message = '';
+  export let message = "";
+  export let open = false;
 
   const dispatch = createEventDispatcher();
 
   function handleReset() {
-    dispatch('reset');
+    dispatch("reset");
   }
 </script>
 
-<div class="modal-backdrop">
-  <div class="modal">
-    <h2>{message}</h2>
-    <button on:click={handleReset}>Play Again</button>
-  </div>
-</div>
-
-<style>
-  .modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .modal {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    text-align: center;
-  }
-
-  button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-</style>
+<Dialog.Root bind:open>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>{message}</Dialog.Title>
+    </Dialog.Header>
+    <Dialog.Footer>
+      <Button on:click={handleReset}>Play Again</Button>
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog.Root>

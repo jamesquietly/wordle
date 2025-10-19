@@ -13,6 +13,9 @@
   let gameState: 'playing' | 'won' | 'lost' = 'playing';
   let gameOverMessage = '';
   let score = 0;
+  let showModal = false;
+
+  $: showModal = gameState !== 'playing';
 
   function newGame() {
     targetWord = generate({ exactly: 1, minLength: 5, maxLength: 5 })[0];
@@ -93,9 +96,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-{#if gameState !== 'playing'}
-  <Modal message={gameOverMessage} on:reset={resetGame} />
-{/if}
+<Modal message={gameOverMessage} on:reset={resetGame} bind:open={showModal} />
 
 <div class="game">
   <h1>Wordle</h1>
